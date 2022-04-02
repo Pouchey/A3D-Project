@@ -20,5 +20,6 @@ public abstract class RayObject {
     //#     Return the parameter lambda.
     //#
     //#-----------------------------------------------------------------
-    abstract double getIntersection(Vec3f p, Vec3f v);
+
+    abstract public double getIntersection(Vec3f p, Vec3f v);
 }

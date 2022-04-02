@@ -7,6 +7,7 @@
 //######################################################################//
 package Objects;
 
+import utils.MyLogger;
 import utils.Vec3f;
 
 public class Sphere extends RayObject{
@@ -28,9 +29,44 @@ public class Sphere extends RayObject{
     //#     Calculate the intersection between a sphere and a ray
     //#-----------------------------------------------------------------
     @Override
-    double getIntersection(Vec3f p, Vec3f v) {
+    public double getIntersection(Vec3f p, Vec3f v) {
 
-        return 0;
+        Vec3f cp = new Vec3f(0,0,0).set(p).sub(center);
+
+
+        double a = v.dotProduct(v);
+        double b = 2*(v.dotProduct(cp));
+        double c = (cp.dotProduct(cp)) - (radius*radius);
+
+        double delta = (b*b)-(4*a*c);
+
+
+        if(delta > 0){
+            double lambda1 = (-b - Math.sqrt(delta))/2*a;
+            double lambda2 = (-b + Math.sqrt(delta))/2*a;
+
+            if(0 < lambda1 && lambda1 < lambda2){
+                return lambda1;
+            }
+            else if(lambda1 < 0 && 0 < lambda2){
+                return lambda2;
+            }
+            else{
+                return -1.0;
+            }
+        }
+        else if(delta == 0){
+            double lambda = (-b)/2*a;
+            if(lambda > 0){
+                return lambda;
+            }
+            else{
+                return -1.0;
+            }
+        }
+        else{
+            return -1.0;
+        }
     }
     
 }

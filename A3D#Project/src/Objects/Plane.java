@@ -10,7 +10,6 @@ package Objects;
 import java.lang.System.Logger;
 
 import utils.MyLogger;
-import utils.MyMath;
 import utils.Vec3f;
 
 public class Plane extends RayObject{
@@ -34,30 +33,25 @@ public class Plane extends RayObject{
     //#     Calculate the intersection between a plan and a ray
     //#-----------------------------------------------------------------
     @Override
-    double getIntersection(Vec3f p, Vec3f v) {
+    public double getIntersection(Vec3f p, Vec3f v) {
 
 
-        if(MyMath.scalarProd(p,v) != 0){
+        if(normal.dotProduct(v) != 0){
 
-            double scalarP = -MyMath.scalarProd(v, normal) - d;
-            double scalarV = MyMath.scalarProd(p,v);
+            
+            double scalarP = normal.dotProduct(p) - d;
+            double scalarV = normal.dotProduct(v);
 
-            double lambda = scalarP/scalarV;
+            double lambda = (-scalarP)/scalarV;
             
             if(lambda > 0){
-                MyLogger.loginfo("Calculating intersection : lambda = " + lambda);
+                // MyLogger.loginfo("Calculating intersection : lambda = " + lambda);
                 return lambda;
             }
-            else{
-                MyLogger.logwarning("Calculating intersection : lambda is negative.");
-                return -1;
-            }
+
 
         }
-        else {
-            MyLogger.logsevere("Calculating intersection : Ray is not valid.");
-            return -1;
-        }
+        return -1;
 
     }
     
