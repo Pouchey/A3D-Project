@@ -285,4 +285,11 @@ public class Vec3f
 		return this;
 	}
 
+	public Vec3f inverse() {
+		this.x = -this.x;
+		this.y = -this.y;
+		this.z = -this.z;
+        return this;
+    }
+
 }

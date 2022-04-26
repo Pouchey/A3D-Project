@@ -7,9 +7,62 @@
 //######################################################################//
 package Objects;
 
+import Scene.Color;
+import Scene.Ray;
 import utils.Vec3f;
 
 public abstract class RayObject {
+
+
+    //#-----------------------------------------------------------------
+    //#     Attributes
+    //#-----------------------------------------------------------------
+    protected Color color;
+    protected double shininess;
+    protected double reflectivity;
+    protected double transparency;
+    protected double refractionIndex;
+
+    //#-----------------------------------------------------------------
+    //#     Constructors
+    //#-----------------------------------------------------------------
+    public RayObject(Color color, double shininess, double reflectivity, double transparency, double refractionIndex) {
+        this.color = color;
+        this.shininess = shininess;
+        this.reflectivity = reflectivity;
+        this.transparency = transparency;
+        this.refractionIndex = refractionIndex;
+    }
+    
+    public RayObject(Color color, double shininess) {
+        this.color = color;
+        this.shininess = shininess;
+        this.reflectivity = 0;
+        this.transparency = 0;
+        this.refractionIndex = 0;
+    }
+
+    //#-----------------------------------------------------------------
+    //#     Methods
+    //#-----------------------------------------------------------------
+    public Color getColor() {
+        return color;
+    }
+    public double getShininess() {
+        return shininess;
+    }
+    public void setShininess(double shininess) {
+        this.shininess = shininess;
+    }
+    public double getReflectivity() {
+        return reflectivity;
+    }
+    public double getTransparency() {
+        return transparency;
+    }
+    public double getRefractionIndex() {
+        return refractionIndex;
+    }
 
     //#-----------------------------------------------------------------
     //#
@@ -21,5 +74,17 @@ public abstract class RayObject {
     //#
     //#-----------------------------------------------------------------
 
-    abstract public double getIntersection(Vec3f p, Vec3f v);
+    abstract public double getIntersection(Ray ray);
+
+    //#-----------------------------------------------------------------
+    //#
+    //#     Compute the normal vector of an object at a given point
+    //#     P.
+    //#
+    //#     Return the normal vector.
+    //#
+    //#-----------------------------------------------------------------
+    abstract public Vec3f getNormal(Vec3f point);
+
+
 }

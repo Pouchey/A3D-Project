@@ -7,16 +7,15 @@
 //######################################################################//
 package Objects;
 
-import java.lang.System.Logger;
-
-import utils.MyLogger;
+import Scene.Color;
+import Scene.Ray;
 import utils.Vec3f;
 
 public class Plane extends RayObject{
 
 
     //#-----------------------------------------------------------------
-    //#     Attributs
+    //#     Attributes
     //#-----------------------------------------------------------------
 
     private final Vec3f normal; // Normal that define the orientation
@@ -25,34 +24,46 @@ public class Plane extends RayObject{
     //#-----------------------------------------------------------------
     //#     Constructors
     //#-----------------------------------------------------------------
-    public Plane(Vec3f normal,float z){
-        this.normal = normal;
+    public Plane(Vec3f normal,float z,Color color,double shininess){
+        super(color,shininess);
+        this.normal = new Vec3f(normal).normalize();
         this.d = z;
+    }
+    public Plane(Vec3f normal,float z,Color color,double shininess,double reflectivity,double transparency,double refractionIndex){
+        super(color,shininess,reflectivity,transparency,refractionIndex);
+        this.normal = new Vec3f(normal).normalize();
+        this.d = z;
+        
     }
     //#-----------------------------------------------------------------
     //#     Calculate the intersection between a plan and a ray
     //#-----------------------------------------------------------------
     @Override
-    public double getIntersection(Vec3f p, Vec3f v) {
+    public double getIntersection(Ray ray) {
 
+        double lambda = -1;
 
-        if(normal.dotProduct(v) != 0){
-
-            
-            double scalarP = normal.dotProduct(p) - d;
-            double scalarV = normal.dotProduct(v);
-
-            double lambda = (-scalarP)/scalarV;
-            
-            if(lambda > 0){
-                // MyLogger.loginfo("Calculating intersection : lambda = " + lambda);
-                return lambda;
-            }
-
-
+        double n = new Vec3f(normal).dotProduct(ray.getDirection());
+        if(n != 0){
+            double v = new Vec3f(normal).dotProduct(ray.getOrigin()) + this.d;
+            lambda = (-v)/n;
         }
-        return -1;
+        return lambda;
+        
 
+    }
+
+    //#-----------------------------------------------------------------
+    //#
+    //#     Compute the normal vector of an object at a given point
+    //#     P.
+    //#
+    //#     Return the normal vector.
+    //#
+    //#-----------------------------------------------------------------
+    @Override
+    public Vec3f getNormal(Vec3f intersectionPoint) {
+        return new Vec3f(normal);
     }
     
 }
