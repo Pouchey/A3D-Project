@@ -6,13 +6,13 @@
 //#
 //######################################################################//
 
-package Scene;
+package raytracer.Scene;
 import java.util.ArrayList;
 
-import Objects.RayObject;
-import utils.JavaTga;
-import utils.MyLogger;
-import utils.Vec3f;
+import raytracer.Objects.RayObject;
+import raytracer.utils.JavaTga;
+import raytracer.utils.MyLogger;
+import raytracer.utils.Vec3f;
 
 
 public class Scene {
@@ -136,7 +136,7 @@ public class Scene {
         for (RayObject object : this.objects) {
 
             double intersection = object.getIntersection(ray);
-            if (intersection > 0.001 && intersection < closestIntersection) {
+            if (intersection > 0.0001 && intersection < closestIntersection) {
                 closestObject = object;
                 closestIntersection = (float) intersection;
             
@@ -173,7 +173,7 @@ public class Scene {
                 
                 Vec3f IS = light.getPosition().sub(intersectionPoint);
 
-                Ray shadowRay = new Ray(new Vec3f(normal).scale(0.0001f), IS);
+                Ray shadowRay = new Ray(new Vec3f(normal).scale(0.00001f), IS);
 
                 for (RayObject object : this.objects) {
                     double intersection = object.getIntersection(shadowRay);
@@ -217,7 +217,7 @@ public class Scene {
                 //#-----------------------------------------------------------------
                 Color reflectionColor = new Color(0,0,0);
                 if(closestObject.getReflectivity() > 0){
-                    Ray reflectedRay = new Ray(new Vec3f(intersectionPoint).addScale(-0.0001f, normal), ray.getDirection().sub(normal.scale(2*ray.getDirection().dotProduct(normal)).normalize()));
+                    Ray reflectedRay = new Ray(new Vec3f(intersectionPoint).addScale(-0.00001f, normal), ray.getDirection().sub(normal.scale(2*ray.getDirection().dotProduct(normal)).normalize()));
                     reflectionColor = findColor(reflectedRay).scale(closestObject.getReflectivity());
                         
                     float reflRatio = (float) (closestObject.getReflectivity() / (1.f + closestObject.getReflectivity()+ closestObject.getTransparency()));
@@ -235,7 +235,7 @@ public class Scene {
                         refractionIndex = (float) closestObject.getRefractionIndex();
 
                     float refractedScale = (float) (refractionIndex*(Math.sqrt(1 - refractionIndex*refractionIndex*(1 - ray.getDirection().dotProduct(normal)*ray.getDirection().dotProduct(normal)))));
-                    Ray refractedRay = new Ray(new Vec3f(intersectionPoint).addScale(-0.0001f, normal),ray.getDirection().scale(refractionIndex).addScale(refractedScale,normal).normalize());
+                    Ray refractedRay = new Ray(new Vec3f(intersectionPoint).addScale(-0.00001f, normal),ray.getDirection().scale(refractionIndex).addScale(refractedScale,normal).normalize());
                     refractionColor = findColor(refractedRay).scale(closestObject.getTransparency());
 
                     float transRatio = (float) (closestObject.getTransparency() / (1.f + closestObject.getReflectivity()+ closestObject.getTransparency()));
@@ -313,7 +313,7 @@ public class Scene {
         MyLogger.loginfo("Creating image : " + filename);
         
         try {
-            JavaTga.saveTGA(filename+".tga",buffer,width,height);
+            JavaTga.saveTGA("../images/" + filename + ".tga",buffer,width,height);
         }
         catch(Exception e)
         {

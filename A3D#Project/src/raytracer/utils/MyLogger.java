@@ -5,7 +5,7 @@
 //#     Description : Logger
 //#
 //######################################################################//
-package utils;
+package raytracer.utils;
 
 import java.util.logging.Logger;
 

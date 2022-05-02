@@ -5,11 +5,11 @@
 //#     Description : Abstract class to represent an object to trace
 //#
 //######################################################################//
-package Objects;
+package raytracer.Objects;
 
-import Scene.Color;
-import Scene.Ray;
-import utils.Vec3f;
+import raytracer.Scene.Color;
+import raytracer.Scene.Ray;
+import raytracer.utils.Vec3f;
 
 public abstract class RayObject {
 

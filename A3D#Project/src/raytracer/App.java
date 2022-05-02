@@ -1,3 +1,4 @@
+package raytracer;
 
 //######################################################################//
 //#
@@ -6,12 +7,12 @@
 //#     Description : Main class 
 //#
 //######################################################################//
-import Objects.Plane;
-import Objects.Sphere;
-import Scene.Color;
-import Scene.Light;
-import Scene.Scene;
-import utils.Vec3f;
+import raytracer.Objects.Plane;
+import raytracer.Objects.Sphere;
+import raytracer.Scene.Color;
+import raytracer.Scene.Light;
+import raytracer.Scene.Scene;
+import raytracer.utils.Vec3f;
 
 
 public class App {

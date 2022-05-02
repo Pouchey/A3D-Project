@@ -6,9 +6,9 @@
 //#
 //######################################################################//
 
-package Scene;
+package raytracer.Scene;
 
-import utils.Vec3f;
+import raytracer.utils.Vec3f;
 
 public class Ray {
 

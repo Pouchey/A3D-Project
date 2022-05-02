@@ -1,4 +1,4 @@
-package utils;
+package raytracer.utils;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -83,7 +83,7 @@ public class JavaTga
             }
         }
         try {
-            saveTGA("imagetest.tga",buffer,w,h);
+            saveTGA("../images/imagetest.tga",buffer,w,h);
         }
         catch(Exception e)
         {

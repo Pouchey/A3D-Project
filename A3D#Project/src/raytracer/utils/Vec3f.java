@@ -1,4 +1,4 @@
-package utils;
+package raytracer.utils;
 
 /**
  * Basic class to represent 3-vectors

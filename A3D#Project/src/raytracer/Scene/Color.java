@@ -6,7 +6,7 @@
 //#     in bytes
 //#
 //######################################################################//
-package Scene;
+package raytracer.Scene;
 
 public class Color {
     
